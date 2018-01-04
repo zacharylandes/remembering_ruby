@@ -10,7 +10,7 @@ class VioationsTest < Minitest::Test
 
   def test_it_loads_CSV
     violation = Violation.new
-    violation = violation.load
-    violation.sorted
+      violation.sorted
   end
+
 end

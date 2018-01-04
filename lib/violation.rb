@@ -13,28 +13,28 @@ class Violation
   def load(file = './Violations-2012.csv')
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.each { |row| @violations << row}
-    @violations
+    @violations = @violations.take(10)
   end
 
   def sorted
-    @violations.sort_by{ |row| row['violation_type'] }
+    load
+    p @violations.sort_by{ |row| row['violation_type'] }
   end
 
-  def row_order(attendee)
-  [attendee[:violation_id], attendee[:inspection_id],
-   attendee[:violation_category],attendee[:violation_date], attendee[:violation_date_closed],
-   attendee[:violation_type]]
+  def row_order(violation)
+  [violation[:violation_id], violation[:inspection_id],
+   violation[:violation_category],violation[:violation_date], violation[:violation_date_closed],
+   violation[:violation_type]]
 end
 
   def print_loop
-    load
-    @violations.each_with_index do |attendee, _|
-      puts @format % row_order(attendee)
+    sorted.each_with_index do |violation, _|
+      puts @format % row_order(violation)
     end
   end
 
   def print_format
-    puts @format % @headers
+          puts @format % @headers
     print_loop
   end
 
