@@ -18,7 +18,7 @@ class Violation
 
   def sorted
     load
-    p @violations.sort_by{ |row| row['violation_type'] }
+     @violations.sort_by!{ |row| row['violation_type'] }
   end
 
   def row_order(violation)
@@ -34,8 +34,12 @@ end
   end
 
   def print_format
-          puts @format % @headers
+      puts @format % @headers
     print_loop
   end
+
+    def count_type
+      sorted.count("Animal Feces")
+    end
 
   end

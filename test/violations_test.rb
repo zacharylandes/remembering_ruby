@@ -8,9 +8,12 @@ require 'pry'
 
 class VioationsTest < Minitest::Test
 
-  def test_it_loads_CSV
+  def test_it_counts_each_type
     violation = Violation.new
-      violation.sorted
+      violation.count_type
+      
+      assert_equal 10, violation.count_type
   end
+
 
 end
