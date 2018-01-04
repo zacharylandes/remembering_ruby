@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 
 class Violation
   def initialize(violation=nil)
@@ -14,12 +15,16 @@ class Violation
     contents.each { |row| @violations << row}
     @violations
   end
-      def row_order(attendee)
-      [attendee[:violation_id], attendee[:inspection_id],
-       attendee[:violation_category],attendee[:violation_date], attendee[:violation_date_closed],
-       attendee[:violation_type]]
-    end
 
+  def sorted
+    @violations.sort_by{ |row| row['violation_type'] }
+  end
+
+  def row_order(attendee)
+  [attendee[:violation_id], attendee[:inspection_id],
+   attendee[:violation_category],attendee[:violation_date], attendee[:violation_date_closed],
+   attendee[:violation_type]]
+end
 
   def print_loop
     load
